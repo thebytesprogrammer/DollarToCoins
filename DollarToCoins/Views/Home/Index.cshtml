@@ -1,0 +1,66 @@
+﻿@model DollarToCoinsViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+    CoinsOutput coinsOutput = ViewBag.CoinOutput as CoinsOutput;
+}
+<center>
+    <h2>Convert dollar amount to largest coins possible</h2>
+</center><br /><br />
+
+<div class="row">
+    <div class="col-md-6">
+        <div id="Result">
+            <span id="innerMessage" class="text-danger">@ViewBag.message</span>
+        </div>
+    </div>
+</div><br />
+    <center>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal row">
+                <div class="col-md-6">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.dollarAmount, htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-6">
+                            @Html.EditorFor(model => model.dollarAmount, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.dollarAmount, "", new { @class = "text -danger" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-6">
+                            <input type="submit" value="Calculate" class="btn btn-default" />
+                        </div>
+                    </div><br /><h3>Output:</h3>
+                    <hr />
+                    <p>
+                        Silver-doller: <b> @coinsOutput.silverDollar </b>
+                        <br />Half-dollar: <b> @coinsOutput.halfDollar </b>
+                        <br />Quarter: <b> @coinsOutput.quarter </b>
+                        <br />Dime: <b> @coinsOutput.dime </b>
+                        <br />Nickel: <b>@coinsOutput.nickel </b>
+                        <br />Penny: <b>@coinsOutput.penny </b>
+                    </p>
+                </div>                
+                <div class="col-md-6" style="padding-left:5%; padding-right:5%;">
+                    <section id="ProfileSideSection">
+                        <h4>About this application:</h4><hr />
+                        <p>
+                            This is a simple application developed with MVC .NET CORE to convert any user's input amount in dollars to
+                            the largest coins possible. This results in the least number of coins.
+                            <br /><br />
+                            This application incorporates the proper use of Microsoft Visual Studio Unit Testing tools
+                            and has been developed with Solid Principles in mind.
+                            <br /><br />
+                            Date published: 2/7/2020
+                        </p>
+                    </section>
+                </div>
+            </div>
+            <br /><br />
+        }
+    </center>
